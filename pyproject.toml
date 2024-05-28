@@ -1,0 +1,88 @@
+
+[build-system]
+requires = ["setuptools>=42", "wheel", "setuptools_scm>=6.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyannote.audio"
+version = "0.0.1" # Managed by setuptools_scm
+description = "Neural building blocks for speaker diarization"
+readme = "README.md"
+authors = [{ name = "Hervé Bredin", email = "herve.bredin@irit.fr" }]
+license = { file = "LICENSE" }
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: English",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Topic :: Scientific/Engineering",
+]
+dependencies = [
+  "numpy",
+  "scipy",
+  "requests",
+  # core
+  "asteroid-filterbanks>=0.4",
+  "einops>=0.6.0",
+  "huggingface_hub>=0.13.0",
+  "lightning>=2.0.1",
+  "omegaconf>=2.1,<3.0",
+  "pyannote.core>=5.0.0",
+  "pyannote.database>=5.0.1",
+  "pyannote.metrics>=3.2",
+  "pyannote.pipeline>=3.0.1",
+  "pytorch_metric_learning>=2.1.0",
+  "rich>=12.0.0",
+  "semver>=3.0.0",
+  "soundfile>=0.12.1",
+  "speechbrain>=0.5.14",
+  "tensorboardX>=2.6",
+  "torch_audiomentations>=0.11.0",
+  "torchmetrics>=0.11.0",
+]
+requires-python = ">=3.7"
+
+[project.optional-dependencies]
+torch = ["torch>=2.0.0", "torchaudio>=2.2.0"]
+testing = ["pytest>=6.0", "pytest-cov>=2.10", "jupyter", "papermill"]
+dev = ["pre_commit>=2.7", "recommonmark>=0.6", "black>=22.3.0"]
+cli = ["hydra-core>=1.1,<1.2", "typer>=0.4.0,<0.5.0"]
+
+[project.urls]
+homepage = "https://github.com/pyannote/pyannote-audio"
+
+[project.scripts]
+pyannote-audio-train = "pyannote.audio.cli.train:train"
+pyannote-audio-eval = "pyannote.audio.cli.evaluate:evaluate"
+
+[tool.setuptools_scm]
+write_to = "pyannote/audio/version.py"
+
+[tool.setuptools]
+zip-safe = false
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pyannote.audio*"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=pyannote --cov-report=term-missing --verbose"
+norecursedirs = "dist build .tox .eggs"
+testpaths = "tests"
+
+[tool.flake8]
+exclude = ".tox, build, dist, .eggs, docs/conf.py"
+
+[tool.sphinx-pyproject]
+source-dir = "doc"
+build-dir = "build/sphinx"
+
+[tool.devpi.upload]
+no-vcs = 1
+formats = "bdist_wheel"

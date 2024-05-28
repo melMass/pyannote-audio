@@ -1,11 +1,11 @@
 
 [build-system]
-requires = ["setuptools>=42", "wheel", "setuptools_scm>=6.0"]
+requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "pyannote.audio"
-version = "0.0.1" # Managed by setuptools_scm
+dynamic = ["version"]
 description = "Neural building blocks for speaker diarization"
 readme = "README.md"
 authors = [{ name = "Hervé Bredin", email = "herve.bredin@irit.fr" }]
@@ -59,9 +59,6 @@ homepage = "https://github.com/pyannote/pyannote-audio"
 [project.scripts]
 pyannote-audio-train = "pyannote.audio.cli.train:train"
 pyannote-audio-eval = "pyannote.audio.cli.evaluate:evaluate"
-
-[tool.setuptools_scm]
-write_to = "pyannote/audio/version.py"
 
 [tool.setuptools]
 zip-safe = false
